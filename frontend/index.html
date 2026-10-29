@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIPA by Moxigua</title>
+    <!-- AGREGAMOS LOS ESTILOS AQUÍ DIRECTAMENTE PARA QUE NO FALLE -->
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+      body { background-color: #f6f8fa; color: #1f2937; }
+      .app-layout { display: flex; flex-direction: column; height: 100vh; }
+      .main-body { display: flex; flex: 1; margin-top: 70px; }
+      .content-area { flex: 1; padding: 30px; background-color: #f6f8fa; overflow-y: auto; margin-left: 260px; width: calc(100% - 260px); }
+    </style>
+    <!-- Cargamos la fuente Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 👇 ESTA ES LA LÍNEA QUE AGREGAMOS PARA QUE LOS ÍCONOS SE VEAN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

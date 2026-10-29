@@ -1,0 +1,290 @@
+/* src/pages/apoyo/GestionFichasApoyo.css */
+
+.gestion-fichas-apoyo-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* MIGA DE PAN */
+.breadcrumb-apoyo {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumb-apoyo ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.breadcrumb-apoyo li {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.breadcrumb-apoyo li i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.breadcrumb-link-apoyo {
+  color: #3ca203;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.breadcrumb-link-apoyo:hover {
+  color: #2d8a00;
+  text-decoration: underline;
+}
+
+.breadcrumb-apoyo li.active-apoyo {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.breadcrumb-apoyo .separator {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* ENCABEZADO */
+.fichas-apoyo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.fichas-apoyo-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.fichas-apoyo-header .subtitulo-apoyo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+/* BUSCADOR */
+.search-container-apoyo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input-apoyo {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  height: 42px;
+  box-sizing: border-box;
+}
+
+.search-input-apoyo:focus {
+  border-color: #3ca203;
+}
+
+.btn-search-apoyo {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.btn-search-apoyo:hover {
+  background: #2d8a00;
+}
+
+.btn-clear-apoyo {
+  background: #e5e7eb;
+  color: #1f2937;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.btn-clear-apoyo:hover {
+  background: #d1d5db;
+}
+
+/* TABLA */
+.table-wrapper-apoyo {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  overflow-x: auto;
+}
+
+.fichas-table-apoyo {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.fichas-table-apoyo thead tr {
+  background: #f8fafc;
+}
+
+.fichas-table-apoyo th {
+  text-align: left;
+  padding: 12px 15px;
+  color: #6b7280;
+  font-weight: 600;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.fichas-table-apoyo td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.fichas-table-apoyo tbody tr:hover {
+  background: #f8fafc;
+}
+
+.ficha-codigo-apoyo {
+  font-weight: 600;
+  color: #3ca203;
+}
+
+/* BADGES */
+.nivel-badge-apoyo {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.nivel-badge-apoyo.tecnólogo {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.nivel-badge-apoyo.técnico {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.nivel-badge-apoyo.profesional {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.nivel-badge-apoyo.especialización {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.estado-badge-apoyo {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.aprendices-count-apoyo {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* PIE DE PÁGINA */
+.footer-info-apoyo {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 15px 20px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.info-card-apoyo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.info-card-apoyo i {
+  font-size: 18px;
+  color: #3ca203;
+}
+
+.info-card-apoyo strong {
+  color: #1f2937;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .fichas-apoyo-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .footer-info-apoyo {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-container-apoyo {
+    flex-wrap: wrap;
+  }
+  .search-input-apoyo {
+    min-width: 100%;
+  }
+  .fichas-table-apoyo {
+    font-size: 12px;
+  }
+  .fichas-table-apoyo th,
+  .fichas-table-apoyo td {
+    padding: 8px 10px;
+  }
+}

@@ -1,0 +1,60 @@
+/* src/components/Aprendices.css */
+.aprendices-container { display: flex; flex-direction: column; gap: 20px; }
+.aprendices-header { display: flex; justify-content: space-between; align-items: center; }
+.aprendices-header h2 { font-size: 22px; font-weight: 600; color: #1f2937; }
+
+.btn-carga {
+  background-color: #004d2e; color: white; border: none;
+  padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer;
+}
+.btn-carga:hover { background-color: #003d25; }
+
+.btn-search {
+  background-color: #004d2e; color: white; border: none;
+  padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer;
+}
+.btn-search:hover { background-color: #003d25; }
+
+.btn-clear { 
+  background-color: #e5e7eb; color: #1f2937; border: none; 
+  padding: 10px 20px; border-radius: 6px; font-size: 14px; cursor: pointer; 
+}
+.btn-clear:hover { background-color: #d1d5db; }
+
+.search-container { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.search-input { 
+  flex: 1; min-width: 200px; padding: 10px 15px; border: 1px solid #e5e7eb; 
+  border-radius: 6px; font-size: 14px; outline: none; 
+}
+.search-input:focus { border-color: #004d2e; }
+
+.table-wrapper { 
+  background: white; border-radius: 12px; padding: 20px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04); overflow-x: auto; 
+}
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { 
+  text-align: left; padding: 12px 15px; color: #6b7280; 
+  font-weight: 600; border-bottom: 2px solid #e5e7eb; 
+}
+td { padding: 15px; border-bottom: 1px solid #e5e7eb; }
+tr:last-child td { border-bottom: none; }
+.codigo { font-weight: 600; color: #1f2937; }
+
+.status-ficha { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500; display: inline-block; }
+.status-activa { background: #d1fae5; color: #047857; }
+.status-inactiva { background: #f3f4f6; color: #6b7280; }
+
+.action-btn-ficha { 
+  padding: 6px 14px; border: none; border-radius: 6px; 
+  font-size: 12px; font-weight: 500; cursor: pointer; margin-right: 5px; 
+}
+.btn-edit { background: #e6f7ed; color: #047857; }
+.btn-delete { background: #fee2e2; color: #dc2626; }
+
+.not-found { 
+  text-align: center; padding: 50px 20px; background: white; 
+  border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); 
+}
+.not-found h2 { color: #dc2626; margin-bottom: 10px; }
+.not-found p { color: #6b7280; }

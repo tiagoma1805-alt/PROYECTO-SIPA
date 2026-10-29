@@ -1,0 +1,508 @@
+/* src/modules/coordinador/pages/InstructoresEP.css */
+
+/* ============================================================ */
+/* HEADER */
+/* ============================================================ */
+.iep-header {
+  margin-bottom: 24px;
+}
+
+.iep-header-titulo h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 6px 0;
+}
+
+.iep-header-titulo h2 i {
+  color: #3ca203;
+  margin-right: 10px;
+}
+
+.iep-header-titulo p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ============================================================ */
+/* STATS */
+/* ============================================================ */
+.iep-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.iep-stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s;
+}
+
+.iep-stat-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.iep-stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.iep-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.iep-stat-numero {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.iep-stat-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* ============================================================ */
+/* BUSCADOR */
+/* ============================================================ */
+.iep-search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.iep-search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.iep-search-input:focus {
+  border-color: #3ca203;
+  box-shadow: 0 0 0 2px rgba(60, 162, 3, 0.1);
+}
+
+/* ============================================================ */
+/* BOTONES */
+/* ============================================================ */
+.iep-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.iep-btn-primary {
+  background: #3ca203;
+  color: white;
+}
+
+.iep-btn-primary:hover {
+  background: #2f8502;
+}
+
+.iep-btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.iep-btn-secondary:hover {
+  background: #d1d5db;
+}
+
+/* ============================================================ */
+/* ESTADO VACÍO */
+/* ============================================================ */
+.iep-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* ============================================================ */
+/* LISTA DE INSTRUCTORES */
+/* ============================================================ */
+.iep-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.iep-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.iep-card:hover {
+  border-color: #3ca203;
+  box-shadow: 0 4px 12px rgba(60, 162, 3, 0.08);
+}
+
+.iep-card.abierto {
+  border-color: #3ca203;
+  box-shadow: 0 4px 16px rgba(60, 162, 3, 0.12);
+}
+
+/* ============================================================ */
+/* CABECERA DE CADA CARD */
+/* ============================================================ */
+.iep-card-header {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.iep-card-header:hover {
+  background: #f9fafb;
+}
+
+.iep-card-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3ca203, #2f8502);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.iep-card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.iep-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.iep-card-nombre {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.iep-card-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.iep-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iep-card-meta i {
+  color: #9ca3af;
+}
+
+.iep-card-stats {
+  display: flex;
+  gap: 24px;
+  padding: 0 16px;
+}
+
+.iep-card-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iep-card-stat-numero {
+  font-size: 22px;
+  font-weight: bold;
+  color: #3ca203;
+  line-height: 1;
+}
+
+.iep-card-stat-label {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.iep-card-toggle {
+  background: #f0fdf4;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #3ca203;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.iep-card-toggle:hover {
+  background: #dcfce7;
+}
+
+/* ============================================================ */
+/* DETALLE EXPANDIDO */
+/* ============================================================ */
+.iep-card-detalle {
+  padding: 0 20px 20px 20px;
+  border-top: 1px solid #f3f4f6;
+  background: #fafbfc;
+  animation: iepSlideDown 0.2s ease-out;
+}
+
+@keyframes iepSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.iep-detalle-loading,
+.iep-detalle-vacio {
+  padding: 30px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.iep-detalle-loading i,
+.iep-detalle-vacio i {
+  margin-right: 8px;
+  color: #3ca203;
+}
+
+.iep-detalle-header {
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.iep-detalle-header h4 {
+  font-size: 15px;
+  color: #1f2937;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.iep-detalle-header h4 i {
+  color: #3ca203;
+}
+
+.iep-detalle-badge {
+  background: #3ca203;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.iep-detalle-fichas {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+  flex-wrap: wrap;
+}
+
+.iep-detalle-fichas i {
+  color: #9ca3af;
+}
+
+.iep-ficha-tag {
+  background: #dcfce7;
+  color: #166534;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* ============================================================ */
+/* TABLA DE APRENDICES */
+/* ============================================================ */
+.iep-tabla-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: white;
+}
+
+.iep-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.iep-tabla thead {
+  background: #f9fafb;
+}
+
+.iep-tabla th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.iep-tabla td {
+  padding: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+  vertical-align: middle;
+}
+
+.iep-tabla tbody tr:hover {
+  background: #f9fafb;
+}
+
+.iep-tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.iep-td-nombre {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.iep-td-doc {
+  color: #6b7280;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.iep-td-ficha {
+  color: #3ca203;
+  font-weight: bold;
+  text-align: center;
+}
+
+.iep-td-programa {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.iep-td-empresa {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.iep-td-periodo {
+  color: #9ca3af;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.iep-badge-alternativa {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ============================================================ */
+/* RESPONSIVE */
+/* ============================================================ */
+@media (max-width: 768px) {
+  .iep-card-header {
+    flex-wrap: wrap;
+  }
+
+  .iep-card-stats {
+    width: 100%;
+    justify-content: space-around;
+    padding: 8px 0 0 0;
+    border-top: 1px solid #f3f4f6;
+    margin-top: 8px;
+  }
+
+  .iep-detalle-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .iep-tabla {
+    font-size: 12px;
+  }
+
+  .iep-tabla th,
+  .iep-tabla td {
+    padding: 8px;
+  }
+}

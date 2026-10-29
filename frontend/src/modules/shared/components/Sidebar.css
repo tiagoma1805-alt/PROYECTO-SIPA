@@ -1,0 +1,21 @@
+.sidebar {
+  width: 260px;
+  height: calc(100vh - 60px);
+  background-color: #f8fafc;
+  color: #334155;
+  padding: 0;
+  position: fixed;
+  left: 0;
+  top: 60px;          /* ← baja este valor si quieres subirlo más */
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sidebar-menu {
+  flex: 1;
+  padding: 0;         /* ← deja esto en 0 */
+}

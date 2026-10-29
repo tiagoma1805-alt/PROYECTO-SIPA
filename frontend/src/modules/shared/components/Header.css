@@ -1,0 +1,152 @@
+/* src/modules/shared/components/Header.css */
+.topbar {
+  background-color: #3ca203;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #ffffff;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.15);
+}
+
+.topbar-left { display: flex; align-items: center; gap: 15px; }
+.topbar-left h3 { font-weight: 500; font-size: 18px; margin: 0; line-height: 1.2; }
+.topbar-left span { font-size: 12px; opacity: 0.8; display: block; }
+.topbar-right { display: flex; align-items: center; gap: 15px; }
+
+/* ══════════ CAMPANA ══════════ */
+.notification-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -7px;
+  background-color: #dc2626;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 1px 4px;
+  border-radius: 50%;
+  border: 2px solid #3ca203;
+  display: block;
+}
+
+/* ══════════ SIGNO DE INTERROGACIÓN (PREGUNTA) ══════════ */
+.help-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.help-circle {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3ca203;
+  margin: 0;
+  padding: 0;
+}
+
+/* ══════════ PERFIL ══════════ */
+.profile-wrapper { position: relative; display: inline-block; cursor: pointer; }
+.profile-section { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 4px 12px 4px 4px; border-radius: 30px; cursor: pointer; transition: 0.2s; }
+.profile-section:hover { background: rgba(255,255,255,0.2); }
+.profile-section img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid white; }
+.profile-section div { font-size: 13px; line-height: 1.0; }
+
+.profile-section strong {
+  display: block;
+  font-size: 13px;
+  color: white;
+  line-height: 1.0;
+  margin-bottom: 2px;
+}
+
+.profile-section small {
+  display: block;
+  font-size: 10px;
+  color: white;
+  opacity: 0.7;
+  line-height: 1.0;
+}
+
+.profile-arrow { margin-left: 3px; transition: transform 0.3s ease; font-size: 12px; }
+.profile-arrow.rotate { transform: rotate(180deg); }
+
+/* ══════════ DROPDOWNS ══════════ */
+.notifications-dropdown,
+.help-dropdown,
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  z-index: 2000;
+  padding: 8px 0;
+  animation: slideDown 0.3s ease;
+}
+
+.notifications-dropdown { width: 320px; }
+.dropdown-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e5e7eb; background: #f8fafc; }
+.dropdown-header span { font-weight: 600; font-size: 14px; }
+.dropdown-header small { font-size: 11px; color: #6b7280; cursor: pointer; }
+.dropdown-header small:hover { color: #3ca203; }
+.dropdown-list { max-height: 250px; overflow-y: auto; }
+.dropdown-item { display: flex; padding: 12px 20px; border-bottom: 1px solid #f3f4f6; transition: 0.2s; cursor: pointer; }
+.dropdown-item:last-child { border-bottom: none; }
+.dropdown-item:hover { background: #f8fafc; }
+.dropdown-item.alerta { border-left: 3px solid #dc2626; }
+.dropdown-item.info { border-left: 3px solid #0ea5e9; }
+.notif-icon { margin-right: 12px; padding-top: 3px; }
+.notif-icon .text-red { color: #dc2626; font-size: 10px; }
+.notif-icon .text-blue { color: #0ea5e9; font-size: 10px; }
+.notif-content { flex: 1; }
+.notif-title { font-size: 13px; font-weight: 500; color: #1f2937; }
+.notif-desc { font-size: 12px; color: #6b7280; margin: 2px 0; }
+.notif-time { font-size: 11px; color: #9ca3af; }
+.dropdown-footer { padding: 12px 20px; text-align: center; border-top: 1px solid #e5e7eb; background: #f8fafc; }
+.dropdown-footer a { text-decoration: none; color: #3ca203; font-size: 13px; font-weight: 500; }
+
+/* HELPER DROPDOWN */
+.help-dropdown { left: -80px; }
+.help-item { padding: 10px 20px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #1f2937; cursor: pointer; transition: 0.2s; }
+.help-item:hover { background: #f3f4f6; color: #3ca203; }
+.help-item i { color: #3ca203; }
+
+/* PROFILE DROPDOWN */
+.profile-dropdown { top: 55px; right: 0; }
+.profile-item { padding: 10px 20px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #1f2937; cursor: pointer; transition: 0.2s; }
+.profile-item:hover { background: #f3f4f6; color: #3ca203; }
+.profile-item i { color: #3ca203; }
+.profile-item.logout-item { border-top: 1px solid #e5e7eb; margin-top: 4px; padding-top: 12px; }
+.profile-item.logout-item:hover { color: #dc2626; }
+.profile-item.logout-item i { color: #dc2626; }
+
+.sena-logo-wrapper { display: flex; align-items: center; justify-content: center; }
+.sena-logo-img { height: 40px; width: auto; }

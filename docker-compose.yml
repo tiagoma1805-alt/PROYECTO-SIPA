@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sipa_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sipa_user
+      POSTGRES_PASSWORD: sipa_password
+      POSTGRES_DB: sipa_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sipa_user -d sipa_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sipa_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg2://sipa_user:sipa_password@db:5432/sipa_db?options=-c%20search_path=etapa_productiva
+      SECRET_KEY: "sipa-moxigua-secret-key-desarrollo-2024-minimo-32-chars"
+      CORS_ORIGINS: "*"
+      FRONTEND_URL: "http://localhost:3000"
+      ENVIRONMENT: "development"
+      DEBUG: "true"
+    volumes:
+      - ./backend/evidencias:/app/evidencias
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    container_name: sipa_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

@@ -1,0 +1,562 @@
+# backend/app/modules/importacion/crud.py
+import csv
+import io
+from datetime import date
+from typing import Any, Dict, List, Tuple
+
+from openpyxl import load_workbook
+from sqlalchemy.orm import Session
+
+from app.core.security import get_password_hash
+from app.models import (
+    Usuario,
+    Ficha,
+    AsignacionInstructorFicha,
+    ProcesoEtapaProductiva,
+    Rol,
+    ProgramaFormacion,
+    ModalidadEP,
+    Empresa,
+    CoordinadorEmpresa,
+)
+from app.modules.importacion.schemas import RowError
+
+
+# Definición de los tipos de importación soportados
+TIPOS_IMPORTACION = {
+    "usuarios": "Usuarios (aprendices, instructores, coordinadores)",
+    "fichas": "Fichas de formación",
+    "asignaciones": "Asignaciones instructor-ficha",
+    "procesos": "Procesos de etapa productiva",
+    "empresas": "Empresas (con NIT, razón social, ARL)",
+    "procesos-alternativas": "Actualizar alternativa (modalidad) de procesos existentes",
+}
+
+# 🔥 Estados del aprendiz
+ESTADOS_ACEPTADOS = {'ACTIVO', 'CONDICIONADO'}
+ESTADOS_RECHAZADOS = {'APLAZADO', 'RETIRADO', 'FINALIZADO'}
+
+
+def leer_archivo(file_bytes: bytes, filename: str) -> List[Dict[str, Any]]:
+    """
+    Lee un archivo CSV o Excel y lo convierte en una lista de diccionarios.
+    """
+    if filename.lower().endswith(".csv"):
+        content = file_bytes.decode("utf-8")
+        reader = csv.DictReader(io.StringIO(content))
+        return [row for row in reader]
+
+    elif filename.lower().endswith((".xlsx", ".xls")):
+        wb = load_workbook(io.BytesIO(file_bytes), read_only=True)
+        ws = wb.active
+        rows = list(ws.iter_rows(values_only=True))
+        if not rows:
+            return []
+
+        headers = [str(h) if h else "" for h in rows[0]]
+        result = []
+        for row in rows[1:]:
+            if all(cell is None or cell == "" for cell in row):
+                continue
+            row_dict = {
+                headers[i]: row[i] if i < len(row) else None
+                for i in range(len(headers))
+            }
+            result.append(row_dict)
+        return result
+
+    else:
+        raise ValueError("Formato de archivo no soportado. Use CSV o Excel (.xlsx)")
+
+
+# ============================================================
+# Validadores de fila por tipo de importación
+# ============================================================
+
+def validar_fila_usuario(data: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
+    # 1. Buscar la contraseña (acepta 'contraseña', 'password' o 'password_hash')
+    password_plano = None
+    for key in ["contraseña", "password", "password_hash"]:
+        if key in data and data[key]:
+            password_plano = str(data[key])
+            break
+    
+    if not password_plano:
+        return False, "Campo requerido faltante: contraseña", None
+
+    campos_requeridos = ["nombre", "apellido", "email"]
+    for campo in campos_requeridos:
+        if not data.get(campo):
+            return False, f"Campo requerido faltante: {campo}", None
+
+    email = str(data["email"]).strip()
+    if "@" not in email or "." not in email:
+        return False, f"Email inválido: {email}", None
+
+    # 2. Hacer que rol_id sea opcional y por defecto sea 3 (Instructor)
+    rol_id_raw = data.get("rol_id")
+    rol_id = int(rol_id_raw) if rol_id_raw else 3
+
+    if len(password_plano) < 8:
+        return False, "La contraseña debe tener al menos 8 caracteres", None
+
+    datos_procesados = {
+        "nombre": str(data["nombre"]).strip(),
+        "apellido": str(data["apellido"]).strip(),
+        "email": email,
+        "password_hash": get_password_hash(password_plano), # Se encripta aquí
+        "documento_identidad": data.get("documento_identidad") or None,
+        "telefono": data.get("telefono") or None,
+        "rol_id": rol_id,
+        "is_active": True,
+    }
+    return True, "", datos_procesados
+
+
+def validar_fila_ficha(data: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
+    campos_requeridos = ["programa_id", "numero_ficha", "fecha_inicio", "fecha_fin"]
+    for campo in campos_requeridos:
+        if not data.get(campo):
+            return False, f"Campo requerido faltante: {campo}", None
+
+    try:
+        programa_id = int(data["programa_id"])
+    except (ValueError, TypeError):
+        return False, f"programa_id no es un número: {data['programa_id']}", None
+
+    try:
+        fecha_inicio = date.fromisoformat(str(data["fecha_inicio"]))
+        fecha_fin = date.fromisoformat(str(data["fecha_fin"]))
+        if fecha_fin < fecha_inicio:
+            return False, "fecha_fin no puede ser anterior a fecha_inicio", None
+    except ValueError:
+        return False, "Fechas inválidas, use formato YYYY-MM-DD", None
+
+    datos_procesados = {
+        "programa_id": programa_id,
+        "numero_ficha": str(data["numero_ficha"]).strip(),
+        "fecha_inicio": fecha_inicio,
+        "fecha_fin": fecha_fin,
+        "nivel": str(data.get("nivel", "Tecnólogo")).strip(),
+        "jornada": str(data.get("jornada", "Mañana")).strip(),
+        "aprendices_esperados": int(data.get("aprendices_esperados", 0) or 0),
+        "is_active": True,
+    }
+    return True, "", datos_procesados
+
+
+def validar_fila_asignacion(data: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
+    campos_requeridos = ["ficha_id", "instructor_id"]
+    for campo in campos_requeridos:
+        if not data.get(campo):
+            return False, f"Campo requerido faltante: {campo}", None
+
+    try:
+        ficha_id = int(data["ficha_id"])
+        instructor_id = int(data["instructor_id"])
+    except (ValueError, TypeError):
+        return False, "ficha_id e instructor_id deben ser números", None
+
+    datos_procesados = {
+        "ficha_id": ficha_id,
+        "instructor_id": instructor_id,
+        "estado_asignacion": "ACTIVA",
+        "is_active": True,
+    }
+    return True, "", datos_procesados
+
+
+def validar_fila_proceso(data: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
+    campos_requeridos = ["aprendiz_id", "ficha_id", "modalidad_id", "instructor_id",
+                         "fecha_inicio", "fecha_fin"]
+    for campo in campos_requeridos:
+        if not data.get(campo):
+            return False, f"Campo requerido faltante: {campo}", None
+
+    try:
+        aprendiz_id = int(data["aprendiz_id"])
+        ficha_id = int(data["ficha_id"])
+        modalidad_id = int(data["modalidad_id"])
+        instructor_id = int(data["instructor_id"])
+    except (ValueError, TypeError):
+        return False, "IDs deben ser numéricos", None
+
+    try:
+        fecha_inicio = date.fromisoformat(str(data["fecha_inicio"]))
+        fecha_fin = date.fromisoformat(str(data["fecha_fin"]))
+        if fecha_fin < fecha_inicio:
+            return False, "fecha_fin no puede ser anterior a fecha_inicio", None
+    except ValueError:
+        return False, "Fechas inválidas, use formato YYYY-MM-DD", None
+
+    empresa_id = None
+    coordinador_empresa_id = None
+
+    raw_empresa = data.get("empresa_id")
+    if raw_empresa not in (None, "", "None", "null"):
+        try:
+            empresa_id = int(raw_empresa)
+        except (ValueError, TypeError):
+            return False, "empresa_id debe ser numérico o vacío", None
+
+    raw_coord = data.get("coordinador_empresa_id")
+    if raw_coord not in (None, "", "None", "null"):
+        try:
+            coordinador_empresa_id = int(raw_coord)
+        except (ValueError, TypeError):
+            return False, "coordinador_empresa_id debe ser numérico o vacío", None
+
+    if (empresa_id is None) != (coordinador_empresa_id is None):
+        return False, "empresa_id y coordinador_empresa_id deben venir juntos o ambos vacíos", None
+
+    datos_procesados = {
+        "aprendiz_id": aprendiz_id,
+        "ficha_id": ficha_id,
+        "modalidad_id": modalidad_id,
+        "instructor_id": instructor_id,
+        "fecha_inicio": fecha_inicio,
+        "fecha_fin": fecha_fin,
+        "empresa_id": empresa_id,
+        "coordinador_empresa_id": coordinador_empresa_id,
+        "estado": "ACTIVO",
+        "estado_sofia": "PENDIENTE",
+        "is_active": True,
+    }
+    return True, "", datos_procesados
+
+
+def validar_fila_empresa(data: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
+    """Valida una fila de empresa."""
+    campos_requeridos = ["nit", "razon_social"]
+    for campo in campos_requeridos:
+        if not data.get(campo):
+            return False, f"Campo requerido faltante: {campo}", None
+
+    nit = str(data["nit"]).strip()
+    razon_social = str(data["razon_social"]).strip()
+
+    if len(nit) < 5:
+        return False, f"NIT inválido (muy corto): {nit}", None
+
+    datos_procesados = {
+        "nit": nit,
+        "razon_social": razon_social,
+        "direccion": data.get("direccion") or None,
+        "telefono": str(data.get("telefono") or "").strip() or None,
+        "correo_contacto": data.get("correo_contacto") or data.get("correo") or None,
+        "arl": str(data.get("arl") or "SURA").strip(),
+        "is_active": True,
+    }
+    return True, "", datos_procesados
+
+
+def validar_fila_proceso_alternativa(data: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
+    """
+    Valida una fila para actualizar la alternativa (modalidad) de un proceso.
+    Acepta documento o email del aprendiz, y el nombre de la modalidad.
+    """
+    documento = data.get("documento") or data.get("documento_identidad")
+    email = data.get("email")
+    modalidad_nombre = data.get("modalidad") or data.get("modalidad_nombre")
+
+    if not documento and not email:
+        return False, "Se requiere 'documento' o 'email' del aprendiz", None
+
+    if not modalidad_nombre:
+        return False, "Campo requerido faltante: modalidad", None
+
+    datos_procesados = {
+        "documento": str(documento).strip() if documento else None,
+        "email": str(email).strip().lower() if email else None,
+        "modalidad": str(modalidad_nombre).strip(),
+    }
+    return True, "", datos_procesados
+
+
+# Mapeo de tipo_importacion a su función de validación
+VALIDACIONES = {
+    "usuarios": validar_fila_usuario,
+    "fichas": validar_fila_ficha,
+    "asignaciones": validar_fila_asignacion,
+    "procesos": validar_fila_proceso,
+    "empresas": validar_fila_empresa,
+    "procesos-alternativas": validar_fila_proceso_alternativa,
+}
+
+
+def importar_datos(
+    db: Session,
+    tipo: str,
+    filas: List[Dict[str, Any]]
+) -> Tuple[int, int, List[RowError]]:
+    if tipo not in VALIDACIONES:
+        raise ValueError(f"Tipo de importación no soportado: {tipo}")
+
+    # 🔥 CASO ESPECIAL: actualizar alternativas de procesos existentes
+    if tipo == "procesos-alternativas":
+        return _importar_alternativas(db, filas)
+
+    filas_insertadas = 0
+    filas_con_error = 0
+    errores: List[RowError] = []
+    fila_num = 1
+
+    for fila in filas:
+        fila_num += 1
+        valida, msg_error, datos = VALIDACIONES[tipo](fila)
+        if not valida:
+            filas_con_error += 1
+            errores.append(RowError(fila=fila_num, mensaje=msg_error, datos=fila))
+            continue
+
+        try:
+            with db.begin_nested():
+                nuevo = _crear_instancia_validada(db, tipo, datos)
+                db.add(nuevo)
+            filas_insertadas += 1
+        except Exception as e:
+            filas_con_error += 1
+            errores.append(RowError(fila=fila_num, mensaje=str(e), datos=fila))
+
+    db.commit()
+    return filas_insertadas, filas_con_error, errores
+
+
+def _importar_alternativas(
+    db: Session,
+    filas: List[Dict[str, Any]]
+) -> Tuple[int, int, List[RowError], int, List[Dict], int, List[Dict]]:
+    """
+    Actualiza la modalidad_id de los procesos existentes.
+    Valida el estado del aprendiz:
+    - ACTIVO       → carga normal
+    - CONDICIONADO → carga con advertencia
+    - APLAZADO/RETIRADO/FINALIZADO → rechaza
+    """
+    actualizados = 0
+    con_error = 0
+    errores: List[RowError] = []
+    con_advertencia = 0
+    detalle_advertencias: List[Dict] = []
+    rechazadas = 0
+    detalle_rechazadas: List[Dict] = []
+    fila_num = 1
+
+    for fila in filas:
+        fila_num += 1
+
+        valida, msg_error, datos = validar_fila_proceso_alternativa(fila)
+        if not valida:
+            con_error += 1
+            errores.append(RowError(fila=fila_num, mensaje=msg_error, datos=fila))
+            continue
+
+        # 🔥 VALIDAR ESTADO DEL APRENDIZ
+        estado_fila = str(
+            fila.get('estado') or fila.get('Estado') or 'ACTIVO'
+        ).upper().strip()
+
+        if estado_fila in ESTADOS_RECHAZADOS:
+            rechazadas += 1
+            detalle_rechazadas.append({
+                'fila': fila_num,
+                'documento': datos.get('documento'),
+                'email': datos.get('email'),
+                'nombre': fila.get('nombre') or fila.get('Nombre') or 'Sin nombre',
+                'estado': estado_fila,
+                'motivo': f'Estado {estado_fila} no permite cargar'
+            })
+            continue
+
+        if estado_fila not in ESTADOS_ACEPTADOS:
+            rechazadas += 1
+            detalle_rechazadas.append({
+                'fila': fila_num,
+                'documento': datos.get('documento'),
+                'email': datos.get('email'),
+                'nombre': fila.get('nombre') or 'Sin nombre',
+                'estado': estado_fila,
+                'motivo': f'Estado desconocido: {estado_fila}'
+            })
+            continue
+
+        try:
+            with db.begin_nested():
+                # 1. Buscar el aprendiz por documento o email
+                aprendiz = None
+                if datos["documento"]:
+                    aprendiz = db.query(Usuario).filter(
+                        Usuario.documento_identidad == datos["documento"],
+                        Usuario.rol_id == 4,
+                        Usuario.is_active == True
+                    ).first()
+                elif datos["email"]:
+                    aprendiz = db.query(Usuario).filter(
+                        Usuario.email == datos["email"],
+                        Usuario.rol_id == 4,
+                        Usuario.is_active == True
+                    ).first()
+
+                if not aprendiz:
+                    raise ValueError(
+                        f"Aprendiz no encontrado: {datos['documento'] or datos['email']}"
+                    )
+
+                # 2. Buscar la modalidad por nombre (case-insensitive)
+                modalidad = db.query(ModalidadEP).filter(
+                    ModalidadEP.nombre.ilike(datos["modalidad"]),
+                    ModalidadEP.is_active == True
+                ).first()
+
+                if not modalidad:
+                    raise ValueError(f"Modalidad no encontrada: {datos['modalidad']}")
+
+                # 3. Buscar el proceso activo del aprendiz
+                proceso = db.query(ProcesoEtapaProductiva).filter(
+                    ProcesoEtapaProductiva.aprendiz_id == aprendiz.id,
+                    ProcesoEtapaProductiva.is_active == True
+                ).first()
+
+                if not proceso:
+                    raise ValueError(f"El aprendiz no tiene proceso activo")
+
+                # 4. Actualizar la modalidad
+                proceso.modalidad_id = modalidad.id
+
+                # 🔥 Actualizar el estado del proceso según el Excel
+                if estado_fila == 'CONDICIONADO':
+                    proceso.estado = 'CONDICIONADO'
+                    con_advertencia += 1
+                    detalle_advertencias.append({
+                        'fila': fila_num,
+                        'documento': datos.get('documento'),
+                        'email': datos.get('email'),
+                        'nombre': f"{aprendiz.nombre} {aprendiz.apellido}".strip(),
+                        'estado': 'CONDICIONADO',
+                        'mensaje': 'Cargado con estado CONDICIONADO'
+                    })
+                else:
+                    proceso.estado = 'ACTIVO'
+
+            actualizados += 1
+        except Exception as e:
+            con_error += 1
+            errores.append(RowError(fila=fila_num, mensaje=str(e), datos=fila))
+
+    db.commit()
+    return (
+        actualizados,
+        con_error,
+        errores,
+        con_advertencia,
+        detalle_advertencias,
+        rechazadas,
+        detalle_rechazadas,
+    )
+
+
+def _crear_instancia_validada(db: Session, tipo: str, datos: Dict[str, Any]):
+    if tipo == "usuarios":
+        rol_id = datos.get("rol_id")
+        if not db.query(Rol).filter(Rol.id == rol_id, Rol.is_active == True).first():
+            raise ValueError(f"Rol ID {rol_id} no existe o está inactivo")
+
+        if db.query(Usuario).filter(
+            (Usuario.email == datos["email"]) |
+            (Usuario.documento_identidad == datos.get("documento_identidad"))
+        ).first():
+            raise ValueError("Email o documento ya registrado")
+
+        return Usuario(**datos)
+
+    elif tipo == "fichas":
+        programa_id = datos.get("programa_id")
+        if not db.query(ProgramaFormacion).filter(
+            ProgramaFormacion.id == programa_id,
+            ProgramaFormacion.is_active == True
+        ).first():
+            raise ValueError(f"Programa ID {programa_id} no existe o está inactivo")
+
+        if db.query(Ficha).filter(Ficha.numero_ficha == datos["numero_ficha"]).first():
+            raise ValueError("Número de ficha duplicado")
+
+        return Ficha(**datos)
+
+    elif tipo == "asignaciones":
+        ficha_id = datos.get("ficha_id")
+        instructor_id = datos.get("instructor_id")
+
+        if not db.query(Ficha).filter(Ficha.id == ficha_id, Ficha.is_active == True).first():
+            raise ValueError(f"Ficha ID {ficha_id} no existe o está inactiva")
+
+        if not db.query(Usuario).filter(
+            Usuario.id == instructor_id,
+            Usuario.rol_id == 3,
+            Usuario.is_active == True
+        ).first():
+            raise ValueError(f"Instructor ID {instructor_id} no es un instructor activo")
+
+        if db.query(AsignacionInstructorFicha).filter(
+            AsignacionInstructorFicha.ficha_id == ficha_id,
+            AsignacionInstructorFicha.instructor_id == instructor_id,
+            AsignacionInstructorFicha.estado_asignacion == "ACTIVA"
+        ).first():
+            raise ValueError("Asignación ya existe")
+
+        return AsignacionInstructorFicha(**datos)
+
+    elif tipo == "procesos":
+        aprendiz_id = datos.get("aprendiz_id")
+        ficha_id = datos.get("ficha_id")
+        modalidad_id = datos.get("modalidad_id")
+        instructor_id = datos.get("instructor_id")
+        empresa_id = datos.get("empresa_id")
+        coordinador_id = datos.get("coordinador_empresa_id")
+
+        if not db.query(Usuario).filter(
+            Usuario.id == aprendiz_id,
+            Usuario.rol_id == 4,
+            Usuario.is_active == True
+        ).first():
+            raise ValueError(f"Aprendiz ID {aprendiz_id} no es un aprendiz activo")
+
+        if not db.query(Ficha).filter(Ficha.id == ficha_id, Ficha.is_active == True).first():
+            raise ValueError(f"Ficha ID {ficha_id} no existe o está inactiva")
+
+        if not db.query(ModalidadEP).filter(
+            ModalidadEP.id == modalidad_id,
+            ModalidadEP.is_active == True
+        ).first():
+            raise ValueError(f"Modalidad ID {modalidad_id} no existe o está inactiva")
+
+        if not db.query(Usuario).filter(
+            Usuario.id == instructor_id,
+            Usuario.rol_id == 3,
+            Usuario.is_active == True
+        ).first():
+            raise ValueError(f"Instructor ID {instructor_id} no es un instructor activo")
+
+        if empresa_id is not None:
+            if not db.query(Empresa).filter(Empresa.id == empresa_id, Empresa.is_active == True).first():
+                raise ValueError(f"Empresa ID {empresa_id} no existe o está inactiva")
+            if coordinador_id is None or not db.query(CoordinadorEmpresa).filter(
+                CoordinadorEmpresa.id == coordinador_id,
+                CoordinadorEmpresa.empresa_id == empresa_id,
+                CoordinadorEmpresa.is_active == True
+            ).first():
+                raise ValueError("Coordinador de empresa no válido para la empresa indicada")
+        elif coordinador_id is not None:
+            raise ValueError("Se indicó coordinador_empresa_id sin empresa_id")
+
+        return ProcesoEtapaProductiva(**datos)
+
+    elif tipo == "empresas":
+        nit = datos.get("nit")
+
+        if db.query(Empresa).filter(Empresa.nit == nit).first():
+            raise ValueError(f"Ya existe una empresa con NIT {nit}")
+
+        return Empresa(**datos)
+
+    else:
+        raise ValueError(f"Tipo no soportado: {tipo}")

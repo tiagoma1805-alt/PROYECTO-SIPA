@@ -1,0 +1,64 @@
+/* src/components/Breadcrumb.css */
+.breadcrumb {
+  padding: 8px 0;
+  margin-bottom: 15px;
+  font-size: 14px;
+  background: transparent;
+  border-bottom: 1px solid #e5e7eb; /* ✅ Línea inferior opcional */
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ✅ ENLACE "Inicio" - VERDE */
+.breadcrumb-item a {
+  color: #3ca203;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.breadcrumb-item a:hover {
+  color: #2d8a00;
+  text-decoration: underline;
+}
+
+/* Separador con el símbolo > */
+.breadcrumb-item:not(:last-child)::after {
+  content: " > ";
+  margin: 0 4px;
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+/* ✅ PÁGINA ACTUAL - GRIS OSCURO */
+.breadcrumb-active {
+  color: #1f2937;
+  font-weight: 600;
+  cursor: default;
+}
+
+/* ✅ NUEVO: Cuando "Inicio" es el único elemento (Dashboard) - VERDE */
+.breadcrumb-item:only-child .breadcrumb-active {
+  color: #3ca203;
+}
+
+/* ✅ NUEVO: Cuando "Inicio" es el único elemento (Dashboard) - VERDE */
+.breadcrumb-item:only-child {
+  color: #3ca203;
+}

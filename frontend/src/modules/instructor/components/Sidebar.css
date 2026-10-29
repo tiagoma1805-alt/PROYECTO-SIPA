@@ -1,0 +1,110 @@
+/* src/modules/instructor/components/Sidebar.css */
+
+.sidebar {
+  width: 260px;
+  background-color: #ebebeb;
+  height: calc(100vh - 70px);      /* 🔥 Altura MENOS el header */
+  position: fixed;
+  top: 70px;
+  left: 0;
+  border-right: 1px solid #d1d5db;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+}
+
+/* 🔥 Scroll personalizado (delgado y gris) */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #b0b0b0;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #8b8b8b;
+}
+
+.sidebar-menu ul { 
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
+.sidebar-menu > ul > li { 
+  padding: 14px 24px; 
+  display: flex; 
+  align-items: center; 
+  cursor: pointer; 
+  font-size: 14px; 
+  color: #4b5563; 
+  font-weight: 500; 
+  position: relative; 
+  transition: all 0.2s ease;
+}
+
+.sidebar-menu > ul > li i:first-child { 
+  width: 25px; 
+  margin-right: 12px; 
+  font-size: 16px; 
+}
+
+/* --- EL COLOR DEL SELECTOR (OPCIÓN ACTIVA) --- */
+.sidebar-menu > ul > li.active,
+.sidebar-menu .submenu li.active {
+  background-color: #39A900 !important;
+  color: #ffffff !important;
+  border-left: none !important;
+  border-radius: 0; 
+}
+
+.sidebar-menu > ul > li.active i:first-child,
+.sidebar-menu .submenu li.active i:first-child {
+  color: #ffffff !important;
+}
+
+/* --- FLECHA --- */
+.menu-arrow {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.menu-arrow.rotate {
+  transform: rotate(180deg);
+  color: #6b7280;
+}
+
+.sidebar-menu > ul > li.active .menu-arrow {
+  color: #ffffff !important;
+}
+
+/* --- HOVER --- */
+.sidebar-menu > ul > li:hover:not(.active) { 
+  background-color: #e5e7eb; 
+}
+
+/* --- SUBMENÚ --- */
+.submenu { 
+  background-color: #e2e2e2; 
+  padding: 5px 0; 
+}
+
+.submenu li { 
+  padding: 10px 24px 10px 60px; 
+  cursor: pointer; 
+  font-size: 14px; 
+  color: #4b5563;
+  transition: 0.2s;
+}
+
+.submenu li:hover:not(.active) { 
+  background-color: #e5e7eb; 
+}

@@ -1,0 +1,421 @@
+/* src/pages/coordinador/SubirAlternativa.css */
+
+/* ========================================================== */
+/* CONTENEDOR PRINCIPAL */
+/* ========================================================== */
+.subir-alternativa-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* ========================================================== */
+/* MIGAS DE PAN */
+/* ========================================================== */
+.breadcrumb {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.breadcrumb li span {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.breadcrumb li span:hover {
+  color: #3ca203;
+}
+
+.breadcrumb li.active {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.breadcrumb .separator {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* ========================================================== */
+/* HEADER */
+/* ========================================================== */
+.subir-alternativa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.subir-alternativa-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.subir-alternativa-header .subtitulo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ========================================================== */
+/* BOTÓN VOLVER */
+/* ========================================================== */
+.btn-back {
+  background: transparent;
+  border: none;
+  color: #3ca203;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 0 8px 0;
+  width: fit-content;
+}
+
+.btn-back:hover {
+  text-decoration: underline;
+}
+
+/* ========================================================== */
+/* BARRA DE BÚSQUEDA */
+/* ========================================================== */
+.search-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  height: 42px;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: #3ca203;
+}
+
+.btn-search {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.btn-search:hover {
+  background: #2d8a00;
+}
+
+.btn-clear {
+  background: #e5e7eb;
+  color: #1f2937;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.btn-clear:hover {
+  background: #d1d5db;
+}
+
+.btn-carga-masiva {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.btn-carga-masiva:hover {
+  background: #2d8a00;
+}
+
+/* ========================================================== */
+/* FICHAS - GRID */
+/* ========================================================== */
+.fichas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.ficha-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px 20px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.ficha-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: #3ca203;
+}
+
+.ficha-numero {
+  font-size: 24px;
+  font-weight: 700;
+  color: #3ca203;
+  letter-spacing: 0.5px;
+}
+
+.ficha-programa {
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.ficha-progreso {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.ficha-total {
+  color: #6b7280;
+}
+
+.ficha-asignados {
+  font-weight: 500;
+}
+
+.ficha-pendientes {
+  font-weight: 500;
+}
+
+/* ========================================================== */
+/* TABLA DE APRENDICES */
+/* ========================================================== */
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  overflow-x: auto;
+}
+
+.alternativa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.alternativa-table thead tr {
+  background: #f8fafc;
+}
+
+.alternativa-table th {
+  text-align: left;
+  padding: 12px 15px;
+  color: #6b7280;
+  font-weight: 600;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.alternativa-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.alternativa-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.nombre-aprendiz {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* ========================================================== */
+/* ESTADO DE ALTERNATIVA */
+/* ========================================================== */
+.alternativa-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.alternativa-status.sin-asignar {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.alternativa-status.asignado {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* ========================================================== */
+/* BOTÓN ASIGNAR */
+/* ========================================================== */
+.btn-asignar {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-asignar:hover {
+  background: #2d8a00;
+  transform: scale(1.05);
+}
+
+.btn-asignar.asignado {
+  background: #10b981;
+}
+
+.btn-asignar.asignado:hover {
+  background: #059669;
+}
+
+/* ========================================================== */
+/* NOT FOUND */
+/* ========================================================== */
+.not-found {
+  text-align: center;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  grid-column: 1 / -1;
+}
+
+.not-found i {
+  font-size: 36px;
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+
+.not-found h3 {
+  font-size: 18px;
+  color: #dc2626;
+  margin: 0 0 8px 0;
+}
+
+.not-found p {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+@media (max-width: 768px) {
+  .fichas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .fichas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-container {
+    flex-wrap: wrap;
+  }
+
+  .search-input {
+    min-width: 100%;
+  }
+
+  .subir-alternativa-header h2 {
+    font-size: 20px;
+  }
+
+  .ficha-progreso {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .alternativa-table {
+    font-size: 12px;
+  }
+
+  .alternativa-table th,
+  .alternativa-table td {
+    padding: 8px 10px;
+  }
+}

@@ -1,0 +1,164 @@
+import os
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
+
+from app.core.config import settings
+
+# Importacion de routers de todos los modulos
+from app.modules.auth.router import router as auth_router
+from app.modules.usuarios.router import router as usuarios_router
+from app.modules.empresas.router import router as empresas_router
+from app.modules.modalidades.router import router as modalidades_router
+from app.modules.programas_fichas.router import router as programas_fichas_router
+from app.modules.procesos.router import router as procesos_router
+from app.modules.charlas.router import router as charlas_router
+from app.modules.seguimientos.router import router as seguimientos_router
+from app.modules.bitacoras.router import router as bitacoras_router
+from app.modules.notificaciones.router import router as notificaciones_router
+from app.modules.dashboards.router import router as dashboards_router
+from app.modules.reportes.router import router as reportes_router
+from app.modules.importacion.router import router as importacion_router
+from app.modules.busqueda.router import router as busqueda_router
+from app.modules.auditoria.router import router as auditoria_router
+from app.modules.observaciones.router import router as observaciones_router
+from app.modules.instructor.router import router as instructor_router
+
+# 🔥 Router de alertas
+from app.modules.alertas.router import router as alertas_router
+
+# 🔥 Router de cartas de presentación
+from app.modules.cartas_presentacion.router import router as cartas_presentacion_router
+
+# 🔥 Router de Formato F165
+from app.modules.f165.router import router as f165_router
+
+# 🔥 Router de Instructores EP
+from app.modules.instructores_ep.router import router as instructores_ep_router
+
+# 🔥 Router de Centros de Formación
+from app.modules.centros_formacion.router import router as centros_formacion_router
+
+# 🔥 Router de Novedades (NUEVO)
+from app.modules.novedades.router import router as novedades_router
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):  
+    """
+    Contexto de vida de la aplicacion.
+    """
+    yield
+
+
+limiter = Limiter(key_func=get_remote_address)
+
+app = FastAPI(
+    title=settings.APP_NAME,
+    description="Sistema de Vigilancia y Seguimiento de Etapa Productiva",
+    version="1.0.0",
+    debug=settings.DEBUG,
+    lifespan=lifespan,
+)
+
+# Registro global de rate limiting
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# CORS con lista blanca desde configuracion
+allow_credentials = "*" not in settings.CORS_ORIGINS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS_ORIGINS,
+    allow_credentials=allow_credentials,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.middleware("http")
+async def security_headers(request, call_next):
+    """
+    Middleware para agregar cabeceras basicas de seguridad.
+    """
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    if settings.ENVIRONMENT == "production":
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    return response
+
+
+# Registro de routers
+app.include_router(auth_router)
+app.include_router(usuarios_router)
+app.include_router(empresas_router)
+app.include_router(modalidades_router)
+app.include_router(programas_fichas_router)
+app.include_router(procesos_router)
+app.include_router(charlas_router)
+app.include_router(seguimientos_router)
+app.include_router(bitacoras_router)
+app.include_router(notificaciones_router)
+app.include_router(dashboards_router)
+app.include_router(reportes_router)
+app.include_router(importacion_router)
+app.include_router(busqueda_router)
+app.include_router(auditoria_router)
+app.include_router(observaciones_router)
+app.include_router(instructor_router)
+
+# 🔥 Router de alertas
+app.include_router(alertas_router)
+
+# 🔥 Router de cartas de presentación
+app.include_router(cartas_presentacion_router)
+
+# 🔥 Router de Formato F165
+app.include_router(f165_router)
+
+# 🔥 Router de Instructores EP
+app.include_router(instructores_ep_router)
+
+# 🔥 Router de Centros de Formación
+app.include_router(centros_formacion_router)
+
+# 🔥 Router de Novedades (NUEVO)
+app.include_router(novedades_router)
+
+
+# 🔥 Servir carpeta de evidencias (PDFs subidos)
+os.makedirs("evidencias", exist_ok=True)
+app.mount("/evidencias", StaticFiles(directory="evidencias"), name="evidencias")
+
+# 🔥 Servir carpeta de uploads (avatares, cartas, charlas, etc.)
+os.makedirs("uploads/avatars", exist_ok=True)
+os.makedirs("uploads/cartas", exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+
+@app.get("/health", tags=["health"])
+def health_check():
+    """
+    Endpoint de salud para verificar que la aplicacion esta corriendo.
+    """
+    return {"status": "ok", "message": f"{settings.APP_NAME} running"}
+
+
+@app.get("/", tags=["root"])
+def endpoint_raiz():
+    """
+    Endpoint raiz informativo.
+    """
+    return {
+        "app": settings.APP_NAME,
+        "version": "1.0.0",
+        "docs": "/docs",
+        "health": "/health",
+    }

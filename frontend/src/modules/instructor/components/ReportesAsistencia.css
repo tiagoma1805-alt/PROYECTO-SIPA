@@ -1,0 +1,218 @@
+/* src/components/ReportesAsistencia.css */
+.reportes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.reportes-header h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 5px 0;
+}
+.reportes-header .subtitulo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Tarjeta de subida grande */
+.upload-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.upload-card-large {
+  background: white;
+  border-radius: 16px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 2px dashed #d1d5db;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  transition: 0.3s;
+}
+.upload-card-large:hover {
+  border-color: #004d2e;
+  background: #f8fafc;
+}
+
+.upload-icon-large {
+  width: 70px;
+  height: 70px;
+  background: #eef2f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.upload-icon-large i {
+  font-size: 32px;
+  color: #004d2e;
+}
+
+.upload-card-large h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+.upload-card-large p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 20px 0;
+}
+
+.btn-upload-large {
+  background: #004d2e;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+.btn-upload-large:hover {
+  background: #003d25;
+}
+
+/* Sección de archivos */
+.files-section {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.files-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 15px 0;
+}
+
+/* Grid de archivos */
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+/* Tarjeta de cada archivo */
+.file-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.2s;
+}
+.file-card:hover {
+  border-color: #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Vista previa */
+.file-preview {
+  width: 100%;
+  height: 120px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.file-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.file-icon-pdf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #dc2626;
+}
+.file-icon-pdf i {
+  font-size: 36px;
+}
+.file-ext-pdf {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* Información */
+.file-info {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.file-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.file-meta {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #6b7280;
+}
+.file-meta i {
+  margin-right: 3px;
+}
+
+/* Acciones */
+.file-actions {
+  display: flex;
+  gap: 8px;
+}
+.btn-view-file {
+  background: #e6f7ed;
+  color: #047857;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.btn-view-file:hover {
+  background: #d1fae5;
+}
+
+.btn-delete-file {
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.btn-delete-file:hover {
+  background: #fecaca;
+}

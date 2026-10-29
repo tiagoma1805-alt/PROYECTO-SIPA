@@ -1,0 +1,75 @@
+/* src/components/Navbar.css */
+.navbar-public {
+  background-color: #39A900;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.navbar-left h3 {
+  font-weight: 500;
+  font-size: 18px;
+  margin: 0;
+  line-height: 1.2;
+}
+.navbar-left span {
+  font-size: 12px;
+  opacity: 0.8;
+  display: block;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-navbar-login {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 20px;
+  border: 1px solid white;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+.btn-navbar-login:hover {
+  background-color: white;
+  color: #39A900;
+}
+
+.btn-navbar-register {
+  color: #39A900;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 20px;
+  background-color: white;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+.btn-navbar-register:hover {
+  background-color: #f3f4f6;
+}
+
+.sena-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sena-logo-img {
+  height: 40px;
+  width: auto;
+}

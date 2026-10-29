@@ -1,0 +1,396 @@
+/* src/pages/aprendiz/MisCertificados.css */
+
+/* ========================================================== */
+/* CONTENEDOR PRINCIPAL */
+/* ========================================================== */
+.mis-certificados-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px 0;
+}
+
+/* ========================================================== */
+/* MIGA DE PAN */
+/* ========================================================== */
+.breadcrumb {
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.breadcrumb li i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.breadcrumb-link {
+  color: #3ca203;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.breadcrumb-link:hover {
+  color: #2d8a00;
+  text-decoration: underline;
+}
+
+.breadcrumb li.active {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.breadcrumb .separator {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* ========================================================== */
+/* ENCABEZADO */
+/* ========================================================== */
+.certificados-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.certificados-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.certificados-header .subtitulo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+/* ========================================================== */
+/* TARJETA DEL CERTIFICADO */
+/* ========================================================== */
+.certificado-card {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .certificado-card {
+    flex-direction: row;
+  }
+}
+
+.certificado-icono {
+  background: linear-gradient(135deg, #3ca203, #2d8a00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  min-width: 150px;
+}
+
+.certificado-icono i {
+  font-size: 64px;
+  color: white;
+}
+
+@media (max-width: 767px) {
+  .certificado-icono {
+    padding: 30px;
+  }
+  .certificado-icono i {
+    font-size: 48px;
+  }
+}
+
+.certificado-contenido {
+  padding: 25px 30px;
+  flex: 1;
+}
+
+.certificado-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 15px 0;
+}
+
+.certificado-info {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-label {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.info-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.estado-cargado {
+  color: #10b981 !important;
+}
+
+.estado-emitido {
+  color: #3ca203 !important;
+}
+
+.estado-pendiente {
+  color: #f59e0b !important;
+}
+
+.certificado-detalles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 15px 0;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+  margin-bottom: 15px;
+}
+
+.detalle-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detalle-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detalle-valor {
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+/* ========================================================== */
+/* BOTONES DE ACCIONES */
+/* ========================================================== */
+.certificado-acciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+/* BOTÓN CARGAR - VERDE */
+.btn-cargar {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-cargar:hover {
+  background: #2d8a00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(60, 162, 3, 0.3);
+}
+
+.btn-cargar:active {
+  transform: translateY(0);
+}
+
+/* BOTÓN DESCARGAR - AZUL */
+.btn-descargar {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-descargar:hover {
+  background: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btn-descargar:active {
+  transform: translateY(0);
+}
+
+/* BOTÓN ELIMINAR - ROJO */
+.btn-eliminar {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-eliminar:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-eliminar:active {
+  transform: translateY(0);
+}
+
+/* ========================================================== */
+/* PIE DE TARJETA */
+/* ========================================================== */
+.certificado-footer {
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.certificado-id {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.certificado-id i {
+  margin-right: 4px;
+}
+
+/* ========================================================== */
+/* INFORMACIÓN ADICIONAL */
+/* ========================================================== */
+.certificado-info-adicional {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.info-card i {
+  font-size: 32px;
+  color: #3ca203;
+  margin-bottom: 10px;
+}
+
+.info-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.info-card p {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+@media (max-width: 600px) {
+  .certificado-contenido {
+    padding: 20px;
+  }
+
+  .certificado-titulo {
+    font-size: 18px;
+  }
+
+  .certificado-detalles {
+    grid-template-columns: 1fr;
+  }
+
+  .certificado-acciones {
+    flex-direction: column;
+  }
+
+  .btn-cargar,
+  .btn-descargar,
+  .btn-eliminar {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .certificado-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .certificado-info-adicional {
+    grid-template-columns: 1fr;
+  }
+}

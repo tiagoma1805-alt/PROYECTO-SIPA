@@ -1,0 +1,30 @@
+/* src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+:root {
+  --primary-green: #004d2e;
+  --bg-light: #f6f8fa;
+  --text-dark: #1f2937;
+  --text-gray: #6b7280;
+  --white: #ffffff;
+  --border-color: #e5e7eb;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* Estructura de la página */
+.app-layout { display: flex; flex-direction: column; height: 100vh; }
+.main-body { display: flex; flex: 1; margin-top: 70px; }
+.content-area { 
+  flex: 1; 
+  padding: 30px; 
+  background-color: var(--bg-light); 
+  overflow-y: auto; /* Permite hacer scroll si el contenido es largo */
+  margin-left: 260px; /* Deja espacio para el menú lateral */
+  width: calc(100% - 260px);
+}

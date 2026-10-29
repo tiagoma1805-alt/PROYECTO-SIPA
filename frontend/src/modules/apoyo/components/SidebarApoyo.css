@@ -1,0 +1,246 @@
+/* src/components/SidebarApoyo.css */
+
+/* ========================================================== */
+/* SIDEBAR APOYO */
+/* ========================================================== */
+.sidebar-apoyo {
+  width: 260px;
+  min-height: calc(100vh - 70px);
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+/* ========================================================== */
+/* HEADER - LOGO */
+/* ========================================================== */
+.sidebar-apoyo-header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+}
+
+.sidebar-apoyo-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-apoyo-logo-icon {
+  font-size: 32px;
+}
+
+.sidebar-apoyo-logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.sidebar-apoyo-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ========================================================== */
+/* TÍTULO DEL MENÚ */
+/* ========================================================== */
+.sidebar-apoyo-menu-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 12px 12px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+}
+
+/* ========================================================== */
+/* MENÚ DE NAVEGACIÓN - CON COLOR VERDE DEL HEADER */
+/* ========================================================== */
+.sidebar-apoyo-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sidebar-apoyo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+}
+
+.sidebar-apoyo-item:hover {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+/* ========================================================== */
+/* ITEM ACTIVO - COLOR VERDE IGUAL AL HEADER */
+/* ========================================================== */
+.sidebar-apoyo-item.active {
+  background: #e6f7ed;  /* Fondo verde claro */
+  color: #3ca203;       /* Texto verde igual al header */
+  font-weight: 600;
+}
+
+.sidebar-apoyo-item.active .sidebar-apoyo-item-icon {
+  color: #3ca203;       /* Icono verde igual al header */
+}
+
+.sidebar-apoyo-item-icon {
+  width: 18px;
+  text-align: center;
+  font-size: 15px;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.sidebar-apoyo-item:hover .sidebar-apoyo-item-icon {
+  color: #1f2937;
+}
+
+.sidebar-apoyo-item-label {
+  flex: 1;
+}
+
+/* ========================================================== */
+/* INDICADOR VERDE - IGUAL AL HEADER */
+/* ========================================================== */
+.sidebar-apoyo-item-indicator {
+  width: 4px;
+  height: 24px;
+  background: #3ca203;  /* Verde igual al header */
+  border-radius: 2px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ========================================================== */
+/* FOOTER */
+/* ========================================================== */
+.sidebar-apoyo-footer {
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.sidebar-apoyo-version {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.sidebar-apoyo-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 4px 14px;
+  border-radius: 16px;
+}
+
+.sidebar-apoyo-badge i {
+  color: #3ca203;
+  font-size: 12px;
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+@media (max-width: 992px) {
+  .sidebar-apoyo {
+    width: 72px;
+    padding: 16px 8px;
+  }
+
+  .sidebar-apoyo-logo-text {
+    display: none;
+  }
+
+  .sidebar-apoyo-subtitle {
+    display: none;
+  }
+
+  .sidebar-apoyo-menu-title {
+    display: none;
+  }
+
+  .sidebar-apoyo-item {
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .sidebar-apoyo-item-label {
+    display: none;
+  }
+
+  .sidebar-apoyo-item-indicator {
+    display: none;
+  }
+
+  .sidebar-apoyo-item-icon {
+    font-size: 18px;
+    width: 24px;
+  }
+
+  .sidebar-apoyo-footer {
+    align-items: center;
+  }
+
+  .sidebar-apoyo-version {
+    font-size: 10px;
+  }
+
+  .sidebar-apoyo-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .sidebar-apoyo-badge span {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar-apoyo {
+    width: 56px;
+    padding: 12px 4px;
+  }
+
+  .sidebar-apoyo-item-icon {
+    font-size: 15px;
+    width: 20px;
+  }
+
+  .sidebar-apoyo-logo-icon {
+    font-size: 22px;
+  }
+
+  .sidebar-apoyo-badge i {
+    font-size: 14px;
+  }
+}

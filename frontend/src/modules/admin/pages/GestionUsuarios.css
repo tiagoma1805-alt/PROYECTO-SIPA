@@ -1,0 +1,417 @@
+/* src/modules/admin/pages/GestionUsuarios.css */
+
+/* ========================================================== */
+/* CONTENEDOR PRINCIPAL */
+/* ========================================================== */
+.gestion-usuarios-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* ========================================================== */
+/* MIGA DE PAN */
+/* ========================================================== */
+.breadcrumb {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.breadcrumb li i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.breadcrumb-link {
+  color: #3ca203;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.breadcrumb-link:hover {
+  color: #2d8a00;
+  text-decoration: underline;
+}
+
+.breadcrumb li.active {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.breadcrumb .separator {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* ========================================================== */
+/* ENCABEZADO CON BOTONES */
+/* ========================================================== */
+.usuarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.usuarios-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.usuarios-header .subtitulo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ========================================================== */
+/* BOTÓN CARGA MASIVA */
+/* ========================================================== */
+.btn-carga-masiva {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-carga-masiva:hover {
+  background: #2d8a00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(60, 162, 3, 0.3);
+}
+
+.btn-carga-masiva:active {
+  transform: translateY(0);
+}
+
+/* ========================================================== */
+/* BOTÓN NUEVO USUARIO */
+/* ========================================================== */
+.btn-nuevo-usuario {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-nuevo-usuario:hover {
+  background: #2d8a00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(60, 162, 3, 0.3);
+}
+
+.btn-nuevo-usuario:active {
+  transform: translateY(0);
+}
+
+/* ========================================================== */
+/* BARRA DE BÚSQUEDA */
+/* ========================================================== */
+.search-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  height: 42px;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: #3ca203;
+}
+
+.btn-search {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.btn-search:hover {
+  background: #2d8a00;
+}
+
+.btn-clear {
+  background: #e5e7eb;
+  color: #1f2937;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.btn-clear:hover {
+  background: #d1d5db;
+}
+
+/* ========================================================== */
+/* TABLA DE USUARIOS */
+/* ========================================================== */
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  overflow-x: auto;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.usuarios-table thead tr {
+  background: #f8fafc;
+}
+
+.usuarios-table th {
+  text-align: left;
+  padding: 12px 15px;
+  color: #6b7280;
+  font-weight: 600;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.usuarios-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.usuarios-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.usuario-nombre {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* ========================================================== */
+/* BADGES */
+/* ========================================================== */
+.rol-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.rol-badge.aprendiz { background: #dbeafe; color: #1d4ed8; }
+.rol-badge.instructor { background: #d1fae5; color: #065f46; }
+.rol-badge.coordinador { background: #fef3c7; color: #d97706; }
+.rol-badge.administrador { background: #ede9fe; color: #7c3aed; }
+
+.estado-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ========================================================== */
+/* BOTÓN EDITAR */
+/* ========================================================== */
+.btn-editar {
+  background: #e0f2fe;
+  color: #0ea5e9;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-editar:hover {
+  background: #bae6fd;
+  transform: scale(1.05);
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+@media (max-width: 768px) {
+  .usuarios-header { flex-direction: column; align-items: stretch; }
+  .header-buttons { flex-direction: column; }
+  .btn-carga-masiva, .btn-nuevo-usuario { justify-content: center; width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .search-container { flex-wrap: wrap; }
+  .search-input { min-width: 100%; }
+  .usuarios-table { font-size: 12px; }
+  .usuarios-table th, .usuarios-table td { padding: 8px 10px; }
+}
+
+/* ========================================================== */
+/* ESTILOS DEFINITIVOS PARA SWEETALERT2 (SIN SCROLL)          */
+/* ========================================================== */
+
+/* 1. Atacar el contenedor externo (el que inyecta SweetAlert con JS) */
+.swal2-container {
+  overflow: hidden !important;
+  padding-right: 0 !important;
+}
+
+/* 2. Ocultar el icono azul de forma definitiva */
+.swal2-icon {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 3. Ventana emergente: sin scroll y sin max-height */
+.swal2-popup {
+  padding: 20px !important;
+  overflow: hidden !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* 4. Contenedor del formulario: sin scroll */
+.swal2-html-container {
+  overflow: hidden !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* 5. EL TRUCO MAESTRO: Grid de 2 columnas para reducir altura */
+.swal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  text-align: left;
+}
+
+.swal-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.swal-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 3px;
+}
+
+.swal-input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  box-sizing: border-box;
+  outline: none;
+  height: 32px;
+}
+
+.swal-input:focus {
+  border-color: #3ca203;
+}
+
+/* 6. Botones */
+.swal2-actions {
+  margin-top: 15px !important;
+  gap: 10px !important;
+}
+
+.swal2-styled {
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+  border-radius: 6px !important;
+}
+
+/* 7. Bloqueo total del scroll del body/html */
+html.swal2-shown,
+body.swal2-shown {
+  overflow: hidden !important;
+  height: auto !important;
+}

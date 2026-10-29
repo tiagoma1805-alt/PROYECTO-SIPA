@@ -1,0 +1,354 @@
+/* src/pages/apoyo/DashboardApoyo.css */
+
+.dashboard-apoyo-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* ========================================================== */
+/* MIGA DE PAN */
+/* ========================================================== */
+.breadcrumb-apoyo {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumb-apoyo ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.breadcrumb-apoyo li {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.breadcrumb-apoyo li i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.breadcrumb-link-apoyo {
+  color: #3ca203;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.breadcrumb-link-apoyo:hover {
+  color: #2d8a00;
+  text-decoration: underline;
+}
+
+.breadcrumb-apoyo li.active-apoyo {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.breadcrumb-apoyo .separator {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* ========================================================== */
+/* ENCABEZADO */
+/* ========================================================== */
+.dashboard-apoyo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.dashboard-apoyo-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.dashboard-apoyo-header .subtitulo-apoyo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+.dashboard-apoyo-header .subtitulo-apoyo strong {
+  color: #3ca203;
+}
+
+.badge-consulta-apoyo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-consulta-apoyo i {
+  color: #3ca203;
+}
+
+/* ========================================================== */
+/* TARJETAS DE ESTADÍSTICAS */
+/* ========================================================== */
+.stats-grid-apoyo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.stat-card-apoyo {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s;
+}
+
+.stat-card-apoyo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* ========================================================== */
+/* GRID DE CARDS */
+/* ========================================================== */
+.dashboard-grid-apoyo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.card-apoyo {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ========================================================== */
+/* ÚLTIMOS USUARIOS */
+/* ========================================================== */
+.usuarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.usuarios-header-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 2px solid #e5e7eb;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.usuario-item-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.usuario-item-list:last-child {
+  border-bottom: none;
+}
+
+.usuario-nombre-list {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.usuario-rol-list {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+.usuario-rol-list.instructor {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.usuario-rol-list.coordinador {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.usuario-rol-list.aprendiz {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* ========================================================== */
+/* ACTIVIDAD RECIENTE */
+/* ========================================================== */
+.actividad-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.actividad-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.actividad-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.actividad-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3ca203;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.actividad-descripcion {
+  font-size: 14px;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.actividad-tiempo {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.actividad-tiempo i {
+  margin-right: 4px;
+}
+
+/* ========================================================== */
+/* PIE DE PÁGINA */
+/* ========================================================== */
+.footer-info-apoyo {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 15px 20px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.info-card-apoyo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.info-card-apoyo i {
+  font-size: 18px;
+  color: #3ca203;
+}
+
+.info-card-apoyo strong {
+  color: #1f2937;
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+@media (max-width: 768px) {
+  .dashboard-grid-apoyo {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-apoyo-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stats-grid-apoyo {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-info-apoyo {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid-apoyo {
+    grid-template-columns: 1fr;
+  }
+}

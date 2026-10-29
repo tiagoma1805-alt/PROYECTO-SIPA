@@ -1,0 +1,620 @@
+/* src/components/SeleccionAlternativa.css */
+
+/* ========================================================== */
+/* CONTENEDOR PRINCIPAL */
+/* ========================================================== */
+.seleccion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ========================================================== */
+/* HEADER */
+/* ========================================================== */
+.seleccion-header h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 5px 0;
+}
+
+.seleccion-header .subtitulo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.header-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* ========================================================== */
+/* BOTÓN CARGA MASIVA */
+/* ========================================================== */
+.btn-carga-masiva {
+  background-color: #39A900;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+.btn-carga-masiva:hover {
+  background-color: #2d8a00;
+}
+
+/* ========================================================== */
+/* HEADER BACK (cuando se selecciona una ficha) */
+/* ========================================================== */
+.header-back {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-back {
+  background: transparent;
+  border: none;
+  color: #004d2e;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  width: fit-content;
+}
+
+.btn-back:hover {
+  text-decoration: underline;
+}
+
+.header-back h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+/* ========================================================== */
+/* BARRA DE BÚSQUEDA */
+/* ========================================================== */
+.search-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  height: 42px;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: #39A900;
+}
+
+.btn-search {
+  background-color: #39A900;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+}
+
+.btn-search:hover {
+  background-color: #2d8a00;
+}
+
+.btn-clear {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+}
+
+.btn-clear:hover {
+  background-color: #d1d5db;
+}
+
+/* ========================================================== */
+/* FILTRO DROPDOWN - BOTÓN VERDE (NUEVO) */
+/* ========================================================== */
+.filtro-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-filtro-verde {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  height: 42px;
+  box-sizing: border-box;
+}
+
+.btn-filtro-verde:hover {
+  background: #2d8a00;
+}
+
+.btn-filtro-verde.active {
+  background: #2d8a00;
+  box-shadow: 0 0 0 3px rgba(60, 162, 3, 0.3);
+}
+
+.btn-filtro-verde .fa-chevron-down {
+  font-size: 12px;
+  transition: transform 0.2s;
+}
+
+.btn-filtro-verde .fa-chevron-down.rotate {
+  transform: rotate(180deg);
+}
+
+/* ========================================================== */
+/* MENÚ DESPLEGABLE DEL FILTRO */
+/* ========================================================== */
+.filtro-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 280px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  padding: 8px;
+  animation: fadeDropdown 0.2s ease;
+}
+
+@keyframes fadeDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filtro-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px 10px 10px;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filtro-dropdown-clear {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.filtro-dropdown-clear:hover {
+  background: #fee2e2;
+}
+
+.filtro-dropdown-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 6px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.filtro-dropdown-option {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s;
+}
+
+.filtro-dropdown-option:hover {
+  background: #f3f4f6;
+}
+
+.filtro-dropdown-option.active {
+  background: #e6f7ed;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.filtro-dropdown-option i:first-child {
+  width: 18px;
+  color: #6b7280;
+}
+
+.filtro-dropdown-option.active i:first-child {
+  color: #3ca203;
+}
+
+.filtro-dropdown-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.filtro-check {
+  margin-left: auto;
+  color: #3ca203;
+  font-size: 14px;
+}
+
+/* ========================================================== */
+/* GRID DE FICHAS */
+/* ========================================================== */
+.fichas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.ficha-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ficha-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-color: #39A900;
+}
+
+.ficha-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ficha-numero {
+  font-size: 20px;
+  font-weight: 700;
+  color: #39A900;
+}
+
+.ficha-cantidad {
+  font-size: 12px;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 2px 12px;
+  border-radius: 12px;
+}
+
+.ficha-card-body .ficha-programa {
+  font-size: 15px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+/* ========================================================== */
+/* RESUMEN DE ALTERNATIVAS EN TARJETAS */
+/* ========================================================== */
+.ficha-alternativas-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 12px;
+}
+
+.alternativa-resumen-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  padding: 3px 10px 3px 6px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  font-size: 11px;
+}
+
+.alternativa-resumen-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.alternativa-resumen-nombre {
+  color: #374151;
+  font-weight: 500;
+}
+
+.alternativa-resumen-cantidad {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.alternativa-resumen-vacio {
+  color: #9ca3af;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* ========================================================== */
+/* LISTA DE APRENDICES */
+/* ========================================================== */
+.aprendices-list-container {
+  width: 100%;
+}
+
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th {
+  text-align: left;
+  padding: 12px 15px;
+  color: #6b7280;
+  font-weight: 600;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nombre-aprendiz {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* ========================================================== */
+/* ETIQUETA DE ALTERNATIVA */
+/* ========================================================== */
+.alternativa-badge {
+  display: inline-block;
+  background: #e6f7ed;
+  color: #047857;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ========================================================== */
+/* BOTÓN EMPRESA ASOCIADA */
+/* ========================================================== */
+.btn-asociacion {
+  background-color: #39A900;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+.btn-asociacion:hover {
+  background-color: #2d8a00;
+}
+
+/* ========================================================== */
+/* PANEL DE EMPRESA (DESPLEGABLE) */
+/* ========================================================== */
+.empresa-row td {
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.empresa-panel {
+  background: #f8fafc;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 0 0 12px 12px;
+  margin: 0 20px 20px 20px;
+}
+
+.empresa-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.empresa-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.empresa-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.empresa-value {
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.empresa-status {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.status-activo {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.status-inactivo {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* ========================================================== */
+/* MENSAJE SIN DATOS */
+/* ========================================================== */
+.empresa-sin-datos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.empresa-sin-datos i {
+  font-size: 20px;
+  color: #f59e0b;
+}
+
+/* ========================================================== */
+/* DATO NO ENCONTRADO */
+/* ========================================================== */
+.not-found-row td {
+  padding: 0 !important;
+}
+
+.not-found {
+  text-align: center;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.not-found h2 {
+  color: #dc2626;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.not-found p {
+  color: #6b7280;
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+@media (max-width: 600px) {
+  .header-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fichas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .empresa-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-container {
+    flex-wrap: wrap;
+  }
+
+  .search-input {
+    min-width: 100%;
+  }
+
+  .filtro-dropdown-menu {
+    right: -50px;
+    min-width: 220px;
+  }
+
+  .btn-filtro-verde {
+    font-size: 13px;
+    padding: 8px 14px;
+    height: 38px;
+  }
+}

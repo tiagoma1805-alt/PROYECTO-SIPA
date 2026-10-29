@@ -1,0 +1,362 @@
+/* src/pages/aprendiz/MisBitacoras.css */
+
+/* ========================================================== */
+/* CONTENEDOR PRINCIPAL */
+/* ========================================================== */
+.mis-bitacoras-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px 0;
+}
+
+/* ========================================================== */
+/* MIGA DE PAN */
+/* ========================================================== */
+.breadcrumb {
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.breadcrumb li i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.breadcrumb-link {
+  color: #3ca203;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.breadcrumb-link:hover {
+  color: #2d8a00;
+  text-decoration: underline;
+}
+
+.breadcrumb li.active {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.breadcrumb .separator {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* ========================================================== */
+/* ENCABEZADO CON BOTÓN */
+/* ========================================================== */
+.bitacoras-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.bitacoras-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.bitacoras-header .subtitulo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+.btn-cargar-bitacora {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-cargar-bitacora:hover {
+  background: #2d8a00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(60, 162, 3, 0.3);
+}
+
+/* ========================================================== */
+/* TARJETAS DE BIMESTRES */
+/* ========================================================== */
+.bimestres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.bimestre-card {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.bimestre-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.bimestre-header {
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  background: #fafafa;
+}
+
+.bimestre-titulo {
+  flex: 1;
+}
+
+.bimestre-numero {
+  font-size: 11px;
+  font-weight: 600;
+  color: #3ca203;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.bimestre-titulo h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.bimestre-estado {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bimestre-estado.completo {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.bimestre-estado.en-proceso {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.bimestre-estado.pendiente {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.bimestre-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bimestre-descripcion {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.bimestre-fechas {
+  display: flex;
+  gap: 15px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.bimestre-fechas i {
+  margin-right: 4px;
+  color: #3ca203;
+}
+
+.bimestre-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.stat-item {
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ========================================================== */
+/* PROGRESO */
+/* ========================================================== */
+.bimestre-progreso {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progreso-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.progreso-label {
+  color: #6b7280;
+}
+
+.progreso-porcentaje {
+  font-weight: 600;
+}
+
+.progreso-barra {
+  width: 100%;
+  height: 6px;
+  background: #f3f4f6;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progreso-llenado {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+
+/* ========================================================== */
+/* BOTÓN VER DETALLES - VERDE */
+/* ========================================================== */
+.btn-ver-detalles-bimestre {
+  background: #3ca203;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.btn-ver-detalles-bimestre:hover {
+  background: #2d8a00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(60, 162, 3, 0.3);
+}
+
+.btn-ver-detalles-bimestre:active {
+  transform: translateY(0);
+}
+
+.btn-ver-detalles-bimestre i {
+  font-size: 14px;
+}
+
+/* ========================================================== */
+/* RESPONSIVE */
+/* ========================================================== */
+@media (max-width: 768px) {
+  .bitacoras-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-cargar-bitacora {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .bimestres-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bimestre-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .bimestre-estado {
+    align-self: flex-start;
+  }
+
+  .bimestre-stats {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bitacoras-header h2 {
+    font-size: 20px;
+  }
+
+  .bimestre-fechas {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .bimestre-body {
+    padding: 14px 16px;
+  }
+
+  .btn-ver-detalles-bimestre {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+}
